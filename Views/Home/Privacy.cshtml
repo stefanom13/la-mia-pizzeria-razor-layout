@@ -32,16 +32,75 @@ Stampare dentro uno span il risultato.
 
 3. Contare quante volte la lettera a è presente nalla frase "nel mezzo del cammin di nostra vita" e stampare questo valore in pagina
 
-4. Creare una List //int> di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70
+@{
+    string stringa = "I parenti sono tutti serpenti";
+    char carattere = 'a';
+
+    int ContaCaratteri(string inputStringa, char inputCarattere)
+    {
+        int count = 0;
+        for (int i = 0; i < inputStringa.Length; i++)
+                    if(inputStringa[i] == inputCarattere)
+            {
+                count++;
+            }
+        return count;
+    }
+ }
+ <h3>La stringa "@stringa" contiene @ContaCaratteri(@stringa, @carattere) volte il carattere '@carattere'.</h3>
+
+4. Creare una List //int> di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70;
+@{
+    List<int> lista = new List<int>();
+
+    int lunghezzaLista = 20;
+
+    int min = 1;
+    int max = 90;
+
+    Random rnd = new Random();
+
+    for(int i = 0; i < lunghezzaLista; i++)
+    {
+        lista.Add(rnd.Next(min, max+1));
+    }
+
+    lista.Sort();
+}
+<div class="">
+    <ul>
+        @foreach(int x in lista)
+        {
+            if(x >= 20 && x <= 70)
+            {
+                <li>@x</li>
+            }
+        }
+    </ul>
+</div>
+
 
 5. Stampare in pagina la data e l'ora attuale (usando la classe DateTime) con il formato anno-mese-giorno ore:minuti:secondi
 
+<h2>Data e ora attuale: @DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss")</h2>
 
 6. Partendo dalla data di oggi (usando la classe DateTime) stampare in pagina
 a. la data di 7 giorni fa
 b. che giorno della settimana è oggi (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)
 c. che giorno della settimana sarà nello stesso giorno e mese di oggi ma tra un anno (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)
 
+<p>Data di 7 giorni fa: @DateTime.Now.AddDays(-7).ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss")</p>
+<p>Oggi è @DateTime.Now.ToString("dddd")</p>
+
+@{
+    int giornoAnno = Convert.ToInt32(@DateTime.Now.ToString("yyyy"));
+    int giornoMese = Convert.ToInt32(@DateTime.Now.ToString("MM"));
+    int giornoOggi = Convert.ToInt32(@DateTime.Now.ToString("dd"));
+
+    DateTime nextYearDate = new DateTime(giornoAnno+1, giornoMese, giornoOggi);
+}
+
+<p>L'anno prossimo, mese e giorno corrente, sarà di @nextYearDate.ToString("dddd")</p>
 
 
 
